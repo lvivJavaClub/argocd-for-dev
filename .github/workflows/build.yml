@@ -1,0 +1,33 @@
+name: "Build java service"
+on: push
+jobs:
+  build:
+    name: build maven project
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3.0.2
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: adopt
+          cache: 'maven'
+      - name: maven build
+        run: mvn -B package --file pom.xml
+      - name: tag
+        id: tag
+        run: |
+          echo ::set-output name=git_rev::$(git rev-parse --short HEAD)
+          if [[ "${{ github.ref }}" == "refs/tags/"* ]]
+          then
+            echo ::set-output name=image_tags::${{ github.ref_name }} $(git rev-parse --short HEAD)
+          else
+            echo ::set-output name=image_tags::$(git rev-parse --short HEAD)
+          fi
+
+      - name: docker image
+        uses: redhat-actions/buildah-build@v2
+        with:
+          image: quay.io/ivan_shevtsov/argocd-for-dev
+          tags: ${{ steps.tag.outputs.image_tags }}
+          dockerfiles: ./Dockerfile
