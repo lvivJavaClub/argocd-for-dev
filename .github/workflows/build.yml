@@ -1,5 +1,7 @@
 name: "Build java service"
-on: push
+on:
+  release:
+    types: [published]
 jobs:
   build:
     name: build maven project
@@ -29,7 +31,7 @@ jobs:
         id: build-image
         uses: redhat-actions/buildah-build@v2
         with:
-          image: quay.io/java_shevtsov/argocd-for-dev
+          image: argocd-for-dev
           tags: ${{ steps.tag.outputs.image_tags }}
           dockerfiles: ./Dockerfile
 
