@@ -20,6 +20,7 @@ jobs:
           echo ::set-output name=git_rev::$(git rev-parse --short HEAD)
           if [[ "${{ github.ref }}" == "refs/tags/"* ]]
           then
+            echo "TAG: ${{ github.ref_name }}"
             echo ::set-output name=image_tags::${{ github.ref_name }} $(git rev-parse --short HEAD)
           else
             echo ::set-output name=image_tags::$(git rev-parse --short HEAD)
@@ -28,7 +29,7 @@ jobs:
         id: build-image
         uses: redhat-actions/buildah-build@v2
         with:
-          image: argocd-for-dev
+          image: quay.io/java_shevtsov/argocd-for-dev
           tags: ${{ steps.tag.outputs.image_tags }}
           dockerfiles: ./Dockerfile
 
@@ -49,5 +50,7 @@ jobs:
           username: ${{ secrets.REGISTRY_USER }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
 
-      - name: Print image url
-        run: echo "Image pushed to ${{ steps.push-to-quay.outputs.registry-paths }}"
+      - name: Check Output Parameters
+        run: |
+          echo "Got tag name ${{ steps.release.outputs.tag_name }}"
+          echo "Got release version ${{ steps.release.outputs.version }}"
