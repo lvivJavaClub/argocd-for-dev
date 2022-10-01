@@ -12,11 +12,12 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: rymndhng/release-on-push-action@master
+        id: release
         with:
           bump_version_scheme: minor
           tag_prefix: ""
 
       - name: Check Output Parameters
         run: |
-          echo "Got tag name ${{ steps.release-on-push.outputs.tag_name }}"
-          echo "Got release version ${{ steps.release-on-push.outputs.version }}"
+          echo "Got tag name ${{ steps.release.outputs.tag_name }}"
+          echo "Got release version ${{ steps.release.outputs.version }}"
