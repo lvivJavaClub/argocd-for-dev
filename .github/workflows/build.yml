@@ -5,8 +5,8 @@ on:
       - '*'
     tags:
       - '*'
-  release:
-    types: [published]
+  create: {}
+
 jobs:
   build:
     name: build maven project
