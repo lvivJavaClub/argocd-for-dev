@@ -5,7 +5,8 @@ on:
       - 'main'
     tags:
       - '*'
-  create: {}
+  release:
+    types: [ published ]
 
 concurrency:
   group: argocd-for-dev-build
