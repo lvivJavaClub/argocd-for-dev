@@ -15,7 +15,7 @@ jobs:
         id: release
         with:
           bump_version_scheme: minor
-          tag_prefix: ""
+          tag_prefix: "v"
 
       - name: Check Output Parameters
         run: |
