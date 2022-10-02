@@ -1,11 +1,15 @@
 name: "Build java service"
 on:
   push:
-    branches:
-      - '*'
+    branches-ignore:
+      - 'main'
     tags:
       - '*'
   create: {}
+
+concurrency:
+  group: argocd-for-dev-build
+  cancel-in-progress: true
 
 jobs:
   build:
