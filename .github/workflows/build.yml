@@ -1,12 +1,8 @@
 name: "Build java service"
 on:
   push:
-    branches-ignore:
+    branches:
       - 'main'
-    tags:
-      - '*'
-  release:
-    types: [ published ]
 
 concurrency:
   group: argocd-for-dev-build
@@ -30,6 +26,7 @@ jobs:
         id: tag
         run: |
           echo ::set-output name=git_rev::$(git rev-parse --short HEAD)
+          echo "${{ github.ref }}"
           if [[ "${{ github.ref }}" == "refs/tags/"* ]]
           then
             echo "TAG: ${{ github.ref_name }}"
