@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+env:
+  git-user: ivan-shevtsov
+  git-email: java.shevtsov@gmail.com
+
 jobs:
   release-on-push:
     runs-on: ubuntu-latest
