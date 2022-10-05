@@ -1,10 +1,11 @@
 name: "Build java service"
 on:
+  pull_request:
   push:
     branches:
       - 'main'
     tags:
-      - 'v*'
+      - '*'
 
 concurrency:
   group: argocd-for-dev-build
