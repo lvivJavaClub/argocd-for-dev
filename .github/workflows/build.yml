@@ -31,10 +31,11 @@ jobs:
           echo "${{ github.ref }}"
           if [[ "${{ github.ref }}" == "refs/tags/"* ]]
           then
+            TAG="${{ github.ref_name }}"
             echo "TAG: ${{ github.ref_name }}"
-            echo ::set-output name=image_tags::${{ github.ref_name }} $(git rev-parse --short HEAD)
+            echo ::set-output name=image_tags::${TAG:1} $(git rev-parse --short HEAD)
           else
-            echo ::set-output name=image_tags::$(git rev-parse --short HEAD)
+            echo ::set-output name=image_tags::$(git rev-parse --short HEAD) $(echo "${{ github.ref_name }}" | sed 's/\//-/g')
           fi
       - name: docker image
         id: build-image
