@@ -6,8 +6,8 @@ on:
       - main
 
 env:
-  git-user: ivan-shevtsov
-  git-email: java.shevtsov@gmail.com
+  git-user: 'ivan-shevtsov'
+  git-email: 'java.shevtsov@gmail.com'
 
 jobs:
   release-on-push:
