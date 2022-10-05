@@ -7,10 +7,6 @@ on:
     tags:
       - '*'
 
-concurrency:
-  group: argocd-for-dev-build
-  cancel-in-progress: true
-
 jobs:
   build:
     name: build maven project
