@@ -9,7 +9,7 @@ public class HelloController {
 
     @PostConstruct
     public void init() {
-        System.out.println("asdf");
+        System.out.println("asd123f");
     }
 
     @GetMapping("/hello")
